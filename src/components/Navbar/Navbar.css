@@ -1,0 +1,31 @@
+.header{
+    background-color: #F4E7EB;
+}
+.fixed{
+    background-color: #F4E7EB;
+}
+button.flex:hover{
+   color:#A10550;
+}
+a.text-sm:hover{
+    color:#A10550;
+}
+a.-mx-3:hover{
+    color:#A10550;
+}
+a.login{
+    background-color: white;
+    border:2px solid #A10550;
+    border-radius: 10px;
+    width:100px;
+    padding:5px;
+    text-align: center;
+}
+a.login:hover{
+   background-color: #E3AADD;
+   border:2px solid white;
+  
+}
+.icon{
+    color: #A10550;
+}
