@@ -1,19 +1,21 @@
-import React from 'react'
+import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 
 /** import all components */
+
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
+import Homepage from './components/home/homepage';
+
 import Username from './components/users/Username';
 import Password from './components/users/Password';
 import Register from './components/users/Register';
-import Profile from './components/users/Profile'
+import Profile from './components/users/Profile';
 import Recovery from './components/users/Recovery';
 import Reset from './components/users/Reset';
 import PageNotFound from './components/users/PageNotFound';
-import ErrorBoundary from './components/users/ErrorBoundary';
-import Homepage from './components/home/homepage';
+
 
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -31,19 +33,16 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 
+import Banner from './components/blog/Banner';
+import Post from './components/blog/Post';
 
-/** root routes  */
+/** auth middleware */
+import { AuthorizeUser, ProtectRoute } from './middleware/auth';
+
+/** root routes */
 const router = createBrowserRouter([
     {
-        path : './navbar',
-        element : <Navbar></Navbar>
-    },
-    {
-        path : './footer',
-        element : <Footer></Footer>
-    },
-    {
-        path : '/username',
+        path : '/',
         element : <Username></Username>
     },
     {
@@ -51,33 +50,44 @@ const router = createBrowserRouter([
         element : <Register></Register>
     },
     {
-        path : '/Password',
-        element : <Password></Password>
+        path : '/password',
+        element : <ProtectRoute><Password /></ProtectRoute>
     },
     {
         path : '/profile',
-        element : <Profile></Profile>
+        element : <AuthorizeUser><Profile /></AuthorizeUser>
     },
     {
         path : '/recovery',
         element : <Recovery></Recovery>
     },
-   
     {
         path : '/reset',
         element : <Reset></Reset>
     },
     {
-        path : '/pagenotfound',
+        path : '*',
         element : <PageNotFound></PageNotFound>
     },
     {
-        path : '/errorboundary',
-        element : <ErrorBoundary></ErrorBoundary>
+        path : '/Navbar',
+        element : <Navbar></Navbar>
     },
     {
-        path : '/homepage',
+        path : '/Footer',
+        element : <Footer></Footer>
+    },
+    {
+        path : '/Homepage',
         element : <Homepage></Homepage>
+    },
+    {
+        path : '/Topbar',
+        element : <Topbar></Topbar>
+    },
+    {
+        path : '/Sidebar',
+        element : <Sidebar></Sidebar>
     },
     {
         path : '/Dashboard',
@@ -124,25 +134,66 @@ const router = createBrowserRouter([
         path : './Geography',
         element : <Geography></Geography>
     },
-    
+    {
+        path : './ColorModeContext',
+        element : <ColorModeContext></ColorModeContext>
+    },
+    {
+        path : './usemode',
+        element : <useMode></useMode>
+    },
+    {
+        path :'./CssBaseline',
+        element : <CssBaseline></CssBaseline>
+    },
+    {
+        path : './ThemeProvider',
+        element : <ThemeProvider></ThemeProvider>
+    },
 ])
+
 export default function App() {
-    return (
-        <main>
-            <RouterProvider router={router}></RouterProvider>
-            
-            <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
-          <Sidebar isSidebar={isSidebar} />
-          
-            <Topbar setIsSidebar={setIsSidebar} />
-            
-          
-        </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
-        </main>
-    );
-}
+
+    const postData = [
+        {
+            department: "SkinCare",
+            title: "Women Skincare",
+            author: "Mariam",
+            designation: "TCE",
+            info: `Skincare is the practice of caring for the skin to maintain its health, appearance, and overall well-being. It involves a range of activities and products designed to cleanse, moisturize, protect, and treat the skin, with the goal of achieving a clear, radiant complexion.
+
+            Skincare routines can vary widely depending on factors such as skin type, age, climate, and personal preferences.`,
+        },
+        {
+            department: "Haircare",
+            title: "Women Haircare",
+            author: "Zeina",
+            designation: "TCE",
+            info: `
+            Haircare is a broad term that encompasses various practices and products aimed at maintaining the health, appearance, and manageability of hair. `,
+        },
+        {
+            department: "Makeup",
+            title: "Women Makeup",
+            author: "Dana",
+            designation: "TCE",
+            info: `
+            Makeup is a form of self-expression and enhancement that involves the application of cosmetics to the face and sometimes the body. It can be used to enhance features, conceal imperfections, and create different looks for various occasions`,
+        }
+    ]
+
+
+  return (
+    <main>
+        <RouterProvider router={router}></RouterProvider>
+
+         {/* blog */}
+         <Banner />
+        <div className='grid grid-cols-3 gap-4 p-8'>
+                {postData.map((e) => {
+                     return <Post content={e} />
+                 })}
+             </div>
+    </main>
+  );
+};

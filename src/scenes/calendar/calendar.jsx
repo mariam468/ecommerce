@@ -6,6 +6,13 @@ import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 
 
+
+// import { formatDate } from '@fullcalendar/react';
+// import  FullCalendar  from '@fullcalendar/react';
+
+
+
+
 import {
   Box,
   List,
@@ -14,13 +21,14 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import Header from "../../components/Header";
+import Header from "../../components/dashboard/Header";
 import { tokens } from "../../theme";
 
 const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
+ 
 
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");

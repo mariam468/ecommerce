@@ -26,6 +26,7 @@ export default function Username() {
     onSubmit : async values => {
       setUsername(values.username);
       navigate('/password')
+      console.log(values)
     }
   })
 

@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+// import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import "react-pro-sidebar/dist/css/styles.css";
 
+import { ProSidebar } from 'react-pro-sidebar';
+
+import  { Menu, MenuItem } from "react-pro-sidebar";
 
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -23,6 +25,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
+   
     <MenuItem
       active={selected === title}
       style={{
@@ -31,9 +34,11 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       onClick={() => setSelected(title)}
       icon={icon}
     >
+   
       <Typography>{title}</Typography>
       <Link to={to} />
     </MenuItem>
+   
   );
 };
 
